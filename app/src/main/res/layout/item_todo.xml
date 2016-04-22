@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_itemtodo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_itemtodo_equipment"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="5dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:src="@drawable/iv_emptyorerror"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_itemtodo_listtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:text="现代多功能体育馆"
+                android:textColor="@color/primary_text"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_itemtodo_listcontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:lineSpacingExtra="2dp"
+                android:text="现代多功能体育馆"
+                android:textColor="#00aeff"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_itemtodo_level"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/iv_emptyorerror"
+                android:clickable="false"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/tv_itemtodo_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="紧急"
+                android:textColor="@color/primary_text"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
