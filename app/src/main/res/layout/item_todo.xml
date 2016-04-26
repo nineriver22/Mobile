@@ -13,7 +13,7 @@
         android:layout_marginLeft="5dp"
         android:clickable="false"
         android:focusable="false"
-        android:src="@drawable/iv_emptyorerror"/>
+        android:src="@drawable/iv_mainbottom_repair"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/iv_emptyorerror"
+                android:background="@drawable/iv_mainbottom_repair"
                 android:clickable="false"
                 android:focusable="false"/>
 

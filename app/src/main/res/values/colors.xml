@@ -8,7 +8,11 @@
     <color name="primary_dark">#5C6BC0</color>
     <color name="primary_light">#f7b446</color>
     <color name="accent">#3498db</color>
-    <color name="primary_text">#666666</color>
-    <color name="light_text">#f7b446</color>
+    <color name="primary_text">#757776</color>
+    <color name="content_text">#666666</color>
+    <color name="primary_background">#eef2f5</color>
+    <color name="bottom_light">#0085cf</color>
+    <color name="division">#e6e6e6</color>
+    <color name="line">#dfe1e2</color>
 
 </resources>

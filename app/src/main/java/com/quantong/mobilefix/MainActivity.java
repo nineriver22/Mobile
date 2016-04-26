@@ -3,45 +3,38 @@ package com.quantong.mobilefix;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fragments.EvaluationFragment;
-import fragments.IndexFragment;
-import fragments.MenuFragment;
-import fragments.TodoFragment;
+import viewpagers.RepairFragment;
+import viewpagers.PropertyFragment;
+import viewpagers.SettingFragment;
+import viewpagers.TodoFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-    private FragmentManager fragmentManager;
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout drawerLayout;
-    private FrameLayout flContent;
-    private View vMaincontent;
+    private TextView tvTitle;
     private ViewPager viewPager;
-    private LinearLayout llIndex;
     private LinearLayout llTodo;
-    private LinearLayout llEvaluation;
-    private ImageButton ibtnIndex;
+    private LinearLayout llRepair;
+    private LinearLayout llProperty;
+    private LinearLayout llSetting;
     private ImageButton ibtnTodo;
-    private ImageButton ibtnEvaluation;
-    private TextView tvIndex;
+    private ImageButton ibtnRepair;
+    private ImageButton ibtnProperty;
+    private ImageButton ibtnSetting;
     private TextView tvTodo;
-    private TextView tvEvaluation;
+    private TextView tvRepair;
+    private TextView tvproperty;
+    private TextView tvSetting;
 
     private ArrayList<Fragment> fragmentList;
 
@@ -49,59 +42,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        flContent = (FrameLayout) findViewById(R.id.fl_main_content);
-        drawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
-        toolbar = (Toolbar) findViewById(R.id.tb_main);
+        tvTitle = (TextView) findViewById(R.id.tv_main_title);
+        viewPager = (ViewPager) findViewById(R.id.vp_main);
+        llTodo = (LinearLayout) findViewById(R.id.ll_mainbottom_todo);
+        llRepair = (LinearLayout) findViewById(R.id.ll_mainbottom_repair);
+        llProperty = (LinearLayout) findViewById(R.id.ll_mainbottom_property);
+        llSetting = (LinearLayout) findViewById(R.id.ll_mainbottom_setting);
+        ibtnTodo = (ImageButton) findViewById(R.id.ibtn_maindbottom_todo);
+        ibtnRepair= (ImageButton) findViewById(R.id.ibtn_maindbottom_repair);
+        ibtnProperty = (ImageButton) findViewById(R.id.ibtn_maindbottom_property);
+        ibtnSetting = (ImageButton) findViewById(R.id.ibtn_maindbottom_setting);
+        tvTodo = (TextView) findViewById(R.id.tv_maindbottom_todo);
+        tvRepair = (TextView) findViewById(R.id.tv_maindbottom_repair);
+        tvproperty = (TextView) findViewById(R.id.tv_maindbottom_property);
+        tvSetting = (TextView) findViewById(R.id.tv_maindbottom_setting);
 
-        vMaincontent = View.inflate(this, R.layout.maincontent, null);
-        viewPager = (ViewPager) vMaincontent.findViewById(R.id.vp_maincontent);
-        llIndex = (LinearLayout) vMaincontent.findViewById(R.id.ll_mainbottom_index);
-        llTodo = (LinearLayout) vMaincontent.findViewById(R.id.ll_mainbottom_todo);
-        llEvaluation = (LinearLayout) vMaincontent.findViewById(R.id.ll_mainbottom_evaluation);
-        ibtnIndex = (ImageButton) vMaincontent.findViewById(R.id.ibtn_maindbottom_index);
-        ibtnTodo = (ImageButton) vMaincontent.findViewById(R.id.ibtn_maindbottom_todo);
-        ibtnEvaluation = (ImageButton) vMaincontent.findViewById(R.id.ibtn_maindbottom_evaluation);
-        tvIndex = (TextView) vMaincontent.findViewById(R.id.tv_maindbottom_index);
-        tvTodo = (TextView) vMaincontent.findViewById(R.id.tv_maindbottom_todo);
-        tvEvaluation = (TextView) vMaincontent.findViewById(R.id.tv_maindbottom_evaluation);
-        flContent.addView(vMaincontent);
-        llIndex.setOnClickListener(new MyOnClickListener(0));
-        llTodo.setOnClickListener(new MyOnClickListener(1));
-        llEvaluation.setOnClickListener(new MyOnClickListener(2));
+        llTodo.setOnClickListener(new MyOnClickListener(0));
+        llRepair.setOnClickListener(new MyOnClickListener(1));
+        llProperty.setOnClickListener(new MyOnClickListener(2));
+        llSetting.setOnClickListener(new MyOnClickListener(3));
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fl_main_menu, new MenuFragment());
-        fragmentTransaction.commit();
-        setSupportActionBar(toolbar);
+        initView();
 
-        toolbar.inflateMenu(R.menu.activity_main_drawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-        mDrawerToggle.syncState();
-        drawerLayout.addDrawerListener(mDrawerToggle);
-
-        initViewPage();
     }
 
-    private void initViewPage() {
+    private void initView() {
         fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(new IndexFragment());
         fragmentList.add(new TodoFragment());
-        fragmentList.add(new EvaluationFragment());
+        fragmentList.add(new RepairFragment());
+        fragmentList.add(new PropertyFragment());
+        fragmentList.add(new SettingFragment());
 
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         viewPager.setCurrentItem(0);
+
+        tvTitle.setText("我的待办");
     }
 
     @Override
@@ -115,13 +92,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onPageSelected(int arg0) {
             switch (arg0) {
                 case 0:
-                    pageViewSelectedEffect(ibtnIndex, tvIndex, 0);
+                    pageViewSelectedEffect(ibtnTodo, tvTodo, 0);
                     break;
                 case 1:
-                    pageViewSelectedEffect(ibtnTodo, tvTodo, 1);
+                    pageViewSelectedEffect(ibtnRepair, tvRepair, 1);
                     break;
                 case 2:
-                    pageViewSelectedEffect(ibtnEvaluation, tvEvaluation, 2);
+                    pageViewSelectedEffect(ibtnProperty, tvproperty, 2);
+                    break;
+                case 3:
+                    pageViewSelectedEffect(ibtnSetting, tvSetting, 3);
                     break;
             }
         }
@@ -172,20 +152,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void pageViewSelectedEffect(ImageButton imageButton, TextView textView, int position) {
-        ibtnIndex.setBackgroundResource(R.drawable.iv_mainbottom_index_un);
+        tvTitle.setText(textView.getText());
         ibtnTodo.setBackgroundResource(R.drawable.iv_mainbottom_todo_un);
-        ibtnEvaluation.setBackgroundResource(R.drawable.iv_mainbottom_evaluation_un);
-        tvIndex.setTextColor(Color.rgb(102, 102, 102));
-        tvTodo.setTextColor(Color.rgb(102, 102, 102));
-        tvEvaluation.setTextColor(Color.rgb(102, 102, 102));
+        ibtnRepair.setBackgroundResource(R.drawable.iv_mainbottom_repair_un);
+        ibtnProperty.setBackgroundResource(R.drawable.iv_mainbottom_property_un);
+        ibtnSetting.setBackgroundResource(R.drawable.iv_mainbottom_setting_un);
+        tvTodo.setTextColor(Color.rgb(117,119,118));
+        tvproperty.setTextColor(Color.rgb(117,119,118));
+        tvRepair.setTextColor(Color.rgb(117,119,118));
+        tvSetting.setTextColor(Color.rgb(117,119,118));
 
         if (position == 0)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_index);
-        if (position == 1)
             imageButton.setBackgroundResource(R.drawable.iv_mainbottom_todo);
+        if (position == 1)
+            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_repair);
         if (position == 2)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_evaluation);
-
-        textView.setTextColor(Color.rgb(255, 154, 17));
+            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_property);
+        if (position == 3)
+            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_setting);
+        textView.setTextColor(Color.rgb(0, 133, 207));
     }
 }

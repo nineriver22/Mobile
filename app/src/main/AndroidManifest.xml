@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="skipviews.LoginActivity"
+            android:name="activities.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
@@ -33,13 +33,13 @@
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
         <activity
-            android:name="skipviews.CommonActivity"
+            android:name="equipmentrepair.EquipmentRepairActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
         <activity
-            android:name="skipviews.DispatchListActivity"
+            android:name="activities.CommonActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">

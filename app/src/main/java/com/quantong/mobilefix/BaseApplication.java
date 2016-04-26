@@ -86,7 +86,7 @@ public class BaseApplication extends Application {
 
     private DisplayImageOptions getDisplayImageOptions(Context context) {
         displayImageOptions = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.iv_emptyorerror)//设置图片Uri为空或是错误的时候显示的图片
+                //.showImageForEmptyUri(R.drawable.iv_emptyorerror)//设置图片Uri为空或是错误的时候显示的图片
                 .cacheInMemory(false)//设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true)//设置下载的图片是否缓存在SD卡中
                 .considerExifParams(true)  //是否考虑JPEG图像EXIF参数（旋转，翻转）
