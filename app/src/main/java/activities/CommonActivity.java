@@ -15,8 +15,6 @@ import com.quantong.mobilefix.R;
  */
 public class CommonActivity extends FragmentActivity implements View.OnClickListener {
 
-    public static String listID;
-
     private ImageView ivBack;
     private TextView tvTitle;
 

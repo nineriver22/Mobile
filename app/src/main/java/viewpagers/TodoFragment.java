@@ -16,9 +16,8 @@ import java.util.ArrayList;
 
 import adapters.TodoAdapter;
 import callbacks.RecyclerItemClickListener;
-import databean.TodoBean;
+import databean.TodoListBean;
 import equipmentrepair.EquipmentRepairActivity;
-import uilts.DividerItemDecoration;
 
 /**
  * Created by Cii on 2016/4/21.
@@ -27,7 +26,7 @@ public class TodoFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager rcvLayoutManager;
-    private ArrayList<TodoBean> todoBeanList = new ArrayList<TodoBean>();
+    private ArrayList<TodoListBean> beanList = new ArrayList<TodoListBean>();
     private TodoAdapter todoAdapter;
 
     @Nullable
@@ -36,17 +35,13 @@ public class TodoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rcv_todo);
 
-        for (int i = 0; i < 11; i++) {
-            TodoBean todoBean = new TodoBean();
-            todoBean.listTitle = "标题" + String.valueOf(i);
-            todoBean.listContent = "内容" + String.valueOf(i);
-            todoBean.level = String.valueOf(i);
-            todoBeanList.add(todoBean);
-        }
+        initData();
+
         rcvLayoutManager = new LinearLayoutManager(getActivity());
-        todoAdapter = new TodoAdapter(todoBeanList);
+        todoAdapter = new TodoAdapter(beanList);
         recyclerView.setLayoutManager(rcvLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        //分割线
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(todoAdapter);
         todoAdapter.setListener(new RecyclerItemClickListener() {
             @Override
@@ -56,5 +51,19 @@ public class TodoFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void initData() {
+        for (int i = 0; i < 11; i++) {
+            TodoListBean todoListBean = new TodoListBean();
+            todoListBean.SN = "2025455879988-" + String.valueOf(i);
+            todoListBean.state = "待办";
+            todoListBean.imageID = R.drawable.iv_todolist_time;
+            todoListBean.overTime = "3小时38分";
+            todoListBean.title = "打印机需要维修";
+            todoListBean.detail = "印机需要维修打印机需要维修打印机需要维修打印机需要维修打印机需要维修";
+            todoListBean.dispatchTime = "2016-04-22 14:25:36";
+            beanList.add(todoListBean);
+        }
     }
 }

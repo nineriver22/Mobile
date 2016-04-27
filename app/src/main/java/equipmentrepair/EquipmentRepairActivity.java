@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.quantong.mobilefix.R;
 
-import databean.TodoBean;
+import databean.TodoListBean;
 
 /**
  * Created by Cii on 2016/4/21.
@@ -30,7 +30,7 @@ public class EquipmentRepairActivity extends FragmentActivity implements View.On
 
     private Fragment mEquRepContentFragment;
     private Fragment mEquRepBackupFragment;
-    private TodoBean todoBean;
+    private TodoListBean todoListBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

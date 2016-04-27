@@ -13,7 +13,7 @@ import com.quantong.mobilefix.R;
 import java.util.ArrayList;
 
 import callbacks.RecyclerItemClickListener;
-import databean.TodoBean;
+import databean.TodoListBean;
 
 /**
  * Created by Cii on 2016/4/21.
@@ -21,23 +21,31 @@ import databean.TodoBean;
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     private RecyclerItemClickListener recyclerItemClickListener;
-    private ArrayList<TodoBean> todoBeanList;
+    private ArrayList<TodoListBean> beanList;
 
-    public TodoAdapter(ArrayList<TodoBean> list) {
-        this.todoBeanList = list;
+    public TodoAdapter(ArrayList<TodoListBean> list) {
+        this.beanList = list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo, parent, false));
+        ViewHolder viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todolist, parent, false));
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvTitle.setText(todoBeanList.get(position).listTitle);
-        holder.tvContent.setText(todoBeanList.get(position).listContent);
-        holder.tvLevel.setText(todoBeanList.get(position).level);
+        holder.tvSN.setText(beanList.get(position).SN);
+        holder.tvTitle.setText(beanList.get(position).title);
+        holder.tvDetail.setText(beanList.get(position).detail);
+        holder.ivState.setBackgroundResource(beanList.get(position).imageID);
+        holder.tvDispatchTime.setText(beanList.get(position).dispatchTime);
+        if (beanList.get(position).state.equals("待办")) {
+            holder.tvExplain.setText(beanList.get(position).overTime);
+        } else {
+            holder.tvExplain.setText(beanList.get(position).state);
+        }
+
         holder.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,26 +57,28 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return todoBeanList.size();
+        return beanList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public LinearLayout llItem;
-        public ImageView ivEquipment;
-        public ImageView ivLevel;
+        public TextView tvSN;
+        public ImageView ivState;
+        public TextView tvExplain;
         public TextView tvTitle;
-        public TextView tvLevel;
-        public TextView tvContent;
+        public TextView tvDetail;
+        public TextView tvDispatchTime;
 
         public ViewHolder(View view) {
             super(view);
-            llItem = (LinearLayout) view.findViewById(R.id.ll_itemtodo);
-            ivEquipment = (ImageView) view.findViewById(R.id.iv_itemtodo_equipment);
-            ivLevel = (ImageView) view.findViewById(R.id.iv_itemtodo_level);
-            tvTitle = (TextView) view.findViewById(R.id.tv_itemtodo_listtitle);
-            tvLevel = (TextView) view.findViewById(R.id.tv_itemtodo_level);
-            tvContent = (TextView) view.findViewById(R.id.tv_itemtodo_listcontent);
+            llItem = (LinearLayout) view.findViewById(R.id.ll_todolist);
+            tvSN = (TextView) view.findViewById(R.id.tv_todolist_sn);
+            ivState = (ImageView) view.findViewById(R.id.iv_todolist_state);
+            tvExplain = (TextView) view.findViewById(R.id.tv_todolist_explain);
+            tvTitle = (TextView) view.findViewById(R.id.tv_todolist_title);
+            tvDetail = (TextView) view.findViewById(R.id.tv_todolist_detail);
+            tvDispatchTime = (TextView) view.findViewById(R.id.tv_todolist_dispatchtime);
         }
     }
 
