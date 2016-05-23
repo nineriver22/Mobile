@@ -14,10 +14,10 @@ import com.quantong.mobilefix.R;
 import java.util.ArrayList;
 
 import adapters.TodoAdapter;
-import databean.TodoListBean;
+import databeans.TodoListBean;
 
 /**
- * Created by Cii on 2016/4/27.
+ * Created by Constantine on 2016/4/27.
  */
 public class EquRepListActivity extends Activity implements View.OnClickListener {
 
@@ -26,6 +26,7 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager rcvLayoutManager;
     private ImageView ivBack;
+    private ImageView ivScan;
     private TextView tvTitle;
     private TextView tvTodoList;
     private TextView tvDoneList;
@@ -42,7 +43,10 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equreplist);
         recyclerView = (RecyclerView) findViewById(R.id.rcv_equreplist);
+
+
         ivBack = (ImageView) findViewById(R.id.iv_equreplist_back);
+        ivScan = (ImageView) findViewById(R.id.iv_equreplist_scan);
         tvTitle = (TextView) findViewById(R.id.tv_equreplist_title);
         tvTodoList = (TextView) findViewById(R.id.tv_equreplist_todolist);
         tvDoneList = (TextView) findViewById(R.id.tv_equreplist_donelist);
@@ -55,10 +59,12 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
         rcvLayoutManager = new LinearLayoutManager(this);
         todoAdapter = new TodoAdapter(allList);
         recyclerView.setLayoutManager(rcvLayoutManager);
+        //添加分割线
         //recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(todoAdapter);
 
         ivBack.setOnClickListener(this);
+        ivScan.setOnClickListener(this);
         tvTodoList.setOnClickListener(this);
         tvDoneList.setOnClickListener(this);
     }
@@ -68,7 +74,7 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
             TodoListBean todoListBean = new TodoListBean();
             todoListBean.SN = "2025455879988-" + String.valueOf(i);
             todoListBean.state = "待办";
-            todoListBean.imageID = R.drawable.iv_todolist_time;
+            //todoListBean.imageID = R.drawable.iv_todolist_time;
             todoListBean.overTime = "3小时38分";
             todoListBean.title = "打印机需要维修";
             todoListBean.detail = "印机需要维修打印机需要维修打印机需要维修打印机需要维修打印机需要维修";
@@ -78,7 +84,7 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
             TodoListBean doneListBean = new TodoListBean();
             doneListBean.SN = "xassddeeesaw-" + String.valueOf(i);
             doneListBean.state = "已完成";
-            doneListBean.imageID = R.drawable.iv_todolist_done;
+            //doneListBean.imageID = R.drawable.iv_todolist_done;
             doneListBean.overTime = "3小时38分";
             doneListBean.title = "已完成";
             doneListBean.detail = "已完成已完成已完成已完成已完成已完成已完成已完成已完成已完成";
@@ -93,6 +99,9 @@ public class EquRepListActivity extends Activity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.iv_equreplist_back:
                 finish();
+                break;
+            case R.id.iv_equreplist_scan:
+                startActivity(new Intent(this,ScanActivity.class));
                 break;
             case R.id.tv_equreplist_todolist:
                 selectedEffect(tvTodoList, vTodoList);
