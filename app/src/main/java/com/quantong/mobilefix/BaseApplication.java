@@ -2,8 +2,6 @@ package com.quantong.mobilefix;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
@@ -21,13 +19,12 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
 
-import constants.PersonalConstansts;
-
 /**
- * Created by cii on 2016/4/20.
+ * Created by Constantine on 2016/4/20.
  */
 public class BaseApplication extends Application {
 
+    private final String TAG = "BaseApplication";
     private static Context mContext;
     private String cacheFilePath;
     public static DisplayImageOptions displayImageOptions;
@@ -37,10 +34,11 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        initImageLoader(mContext);
-        displayImageOptions = getDisplayImageOptions(mContext);
-        //getVersion();
-        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //initImageLoader(mContext);
+        //displayImageOptions = getDisplayImageOptions(mContext);
+        //inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        //CrashHandler.getInstance().init(this);
     }
 
     public static Context getContext() {
@@ -97,21 +95,4 @@ public class BaseApplication extends Application {
         return displayImageOptions;
     }
 
-    private void getVersion() {
-        try {
-            PackageInfo packageInfo = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
-            PersonalConstansts.versionCode = packageInfo.versionCode;
-            PersonalConstansts.versionName = packageInfo.versionName;
-            Log.d("BaseApplication", "versionName:" + String.valueOf(PersonalConstansts.versionName));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-
-        Log.d("BaseApplication", "onTerminate");
-    }
 }

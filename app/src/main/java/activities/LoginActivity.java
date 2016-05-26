@@ -59,7 +59,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private CheckTokenBean checkTokenBean;
     private GetCodeBean getCodeBean;
     private LoginBean loginBean;
-    private LoginBean.DatumBean loginDatum;
 
     private int timerFlag;
     private Timer timer;
@@ -86,11 +85,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tvRemeberPassword.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
 
-//        startActivity(new Intent(this, MainActivity.class));
-//        finish();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
         EventBus.getDefault().register(this);
 
-        defaultAccount();
+        //defaultAccount();
     }
 
     private void defaultAccount() {
@@ -98,7 +97,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         isRemeberAccount = sp.getBoolean(PersonalConstansts.REMEBERACCOUNT, false);
         String spAccount = sp.getString(PersonalConstansts.ACCOUNTKEY, "");
         String spPassword = sp.getString(PersonalConstansts.PASSWORDKEY, "");
-        PersonalConstansts.token = sp.getString(PersonalConstansts.TOKEN, "");
+        PersonalConstansts.userName = sp.getString(PersonalConstansts.USERNAMEKEY, "");
+        PersonalConstansts.token = sp.getString(PersonalConstansts.TOKENKEY, "");
 
         if (isRemeberAccount) {
             etAccount.setText(spAccount);
@@ -245,12 +245,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         try {
             loginBean = gson.fromJson(json, LoginBean.class);
             if (loginBean.code == 200) {
-                loginDatum = loginBean.datum;
-                PersonalConstansts.token = loginDatum.token;
-                PersonalConstansts.identityType = loginDatum.type;
-                if (isRemeberAccount) {
-                    saveAccount(account, password, PersonalConstansts.token);
-                }
+                PersonalConstansts.userName = loginBean.datum.username;
+                PersonalConstansts.token = loginBean.datum.token;
+                PersonalConstansts.identityType = loginBean.datum.type;
+
+                saveAccount(account, password, PersonalConstansts.userName, PersonalConstansts.token);
+
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
             } else {
@@ -261,13 +261,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void saveAccount(final String account, final String password, final String token) {
+    private void saveAccount(final String account, final String password, final String userName, final String token) {
         SharedPreferences sp = getSharedPreferences(PersonalConstansts.FILENAME, MODE_PRIVATE);
         SharedPreferences.Editor spEditor = sp.edit();
         spEditor.putBoolean(PersonalConstansts.REMEBERACCOUNT, isRemeberAccount);
         spEditor.putString(PersonalConstansts.ACCOUNTKEY, account);
         spEditor.putString(PersonalConstansts.PASSWORDKEY, password);
-        spEditor.putString(PersonalConstansts.TOKEN, token);
+        spEditor.putString(PersonalConstansts.USERNAMEKEY, userName);
+        spEditor.putString(PersonalConstansts.TOKENKEY, token);
         spEditor.apply();
     }
 

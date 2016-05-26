@@ -13,10 +13,10 @@ import com.quantong.mobilefix.R;
 import java.util.ArrayList;
 
 import callbacks.RecyclerItemClickListener;
-import databean.TodoListBean;
+import databeans.TodoListBean;
 
 /**
- * Created by Cii on 2016/4/21.
+ * Created by Constantine on 2016/4/21.
  */
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 

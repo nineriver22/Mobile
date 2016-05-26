@@ -6,7 +6,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.quantong.mobilefix.BaseApplication;
 
 /**
- * Created by cii on 2016/4/20.
+ * Created by Constantine on 2016/4/20.
  */
 public class ImageManager {
 

@@ -1,175 +1,130 @@
 package com.quantong.mobilefix;
 
-import android.graphics.Color;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
 
-import viewpagers.RepairFragment;
-import viewpagers.PropertyFragment;
-import viewpagers.SettingFragment;
-import viewpagers.TodoFragment;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+import Events.MenuEvent;
+import Events.NetworkEvent;
+import callbacks.OkHttpCallBack;
+import constants.PersonalConstansts;
+import constants.ServiceContans;
+import databeans.TestTokenBean;
+import fragments.ContentMainFragment;
+import fragments.MenuMainFragment;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import uilts.NetworkReceiver;
+import uilts.OKHttpManager;
+import uilts.SlidingMenu;
 
-    private TextView tvTitle;
-    private ViewPager viewPager;
-    private LinearLayout llTodo;
-    private LinearLayout llRepair;
-    private LinearLayout llProperty;
-    private LinearLayout llSetting;
-    private ImageButton ibtnTodo;
-    private ImageButton ibtnRepair;
-    private ImageButton ibtnProperty;
-    private ImageButton ibtnSetting;
-    private TextView tvTodo;
-    private TextView tvRepair;
-    private TextView tvproperty;
-    private TextView tvSetting;
+public class MainActivity extends FragmentActivity {
 
-    private ArrayList<Fragment> fragmentList;
+    private final String TAG = "MainActivity";
+    private NetworkReceiver mNetworkReceiver;
+
+    private SlidingMenu slidingMenu;
+
+    private TestTokenBean testTokenBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        tvTitle = (TextView) findViewById(R.id.tv_main_title);
-        viewPager = (ViewPager) findViewById(R.id.vp_main);
-        llTodo = (LinearLayout) findViewById(R.id.ll_mainbottom_todo);
-        llRepair = (LinearLayout) findViewById(R.id.ll_mainbottom_repair);
-        llProperty = (LinearLayout) findViewById(R.id.ll_mainbottom_property);
-        llSetting = (LinearLayout) findViewById(R.id.ll_mainbottom_setting);
-        ibtnTodo = (ImageButton) findViewById(R.id.ibtn_maindbottom_todo);
-        ibtnRepair= (ImageButton) findViewById(R.id.ibtn_maindbottom_repair);
-        ibtnProperty = (ImageButton) findViewById(R.id.ibtn_maindbottom_property);
-        ibtnSetting = (ImageButton) findViewById(R.id.ibtn_maindbottom_setting);
-        tvTodo = (TextView) findViewById(R.id.tv_maindbottom_todo);
-        tvRepair = (TextView) findViewById(R.id.tv_maindbottom_repair);
-        tvproperty = (TextView) findViewById(R.id.tv_maindbottom_property);
-        tvSetting = (TextView) findViewById(R.id.tv_maindbottom_setting);
+        slidingMenu = (SlidingMenu) findViewById(R.id.slm_main);
 
-        llTodo.setOnClickListener(new MyOnClickListener(0));
-        llRepair.setOnClickListener(new MyOnClickListener(1));
-        llProperty.setOnClickListener(new MyOnClickListener(2));
-        llSetting.setOnClickListener(new MyOnClickListener(3));
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.ll_main_menu, new MenuMainFragment());
+        ft.add(R.id.ll_main_content, new ContentMainFragment());
+        ft.commit();
 
-        initView();
+        testToken("wangqiaobian_cz");
 
+        EventBus.getDefault().register(this);
+        registerNetworkReceiver();
     }
 
-    private void initView() {
-        fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(new TodoFragment());
-        fragmentList.add(new RepairFragment());
-        fragmentList.add(new PropertyFragment());
-        fragmentList.add(new SettingFragment());
+    private void testToken(final String account) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("username", account)
+                .build();
 
-        viewPager.setOffscreenPageLimit(4);
-        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager()));
-        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
-        viewPager.setCurrentItem(0);
+        Request request = new Request.Builder().post(requestBody).url(ServiceContans.testToken).build();
+        OKHttpManager.getInstance().enqueue(request, new OkHttpCallBack() {
+            @Override
+            public void onError(Call call, Exception e) {
+                Log.e(TAG, "onError: " + "error");
+            }
 
-        tvTitle.setText("我的待办");
+            @Override
+            public void onResponse(Object response) {
+                resolveTestTokenData(response.toString());
+            }
+        });
+    }
+
+    private void resolveTestTokenData(final String json) {
+        Gson gson = new Gson();
+        try {
+            testTokenBean = gson.fromJson(json, TestTokenBean.class);
+            if (testTokenBean.code == 200) {
+                PersonalConstansts.token = testTokenBean.datum.token;
+            } else {
+                Toast.makeText(this, testTokenBean.message, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    private void registerNetworkReceiver() {
+        mNetworkReceiver = new NetworkReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkReceiver, intentFilter);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void slideMenu(MenuEvent menuEvent) {
+        slidingMenu.slideMenu();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showNetworkError(NetworkEvent networkEvent) {
+        if (!networkEvent.isNetworkConnected) {
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public void onClick(View v) {
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
-    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
-
-        @Override
-        public void onPageSelected(int arg0) {
-            switch (arg0) {
-                case 0:
-                    pageViewSelectedEffect(ibtnTodo, tvTodo, 0);
-                    break;
-                case 1:
-                    pageViewSelectedEffect(ibtnRepair, tvRepair, 1);
-                    break;
-                case 2:
-                    pageViewSelectedEffect(ibtnProperty, tvproperty, 2);
-                    break;
-                case 3:
-                    pageViewSelectedEffect(ibtnSetting, tvSetting, 3);
-                    break;
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        unregisterReceiver(mNetworkReceiver);
+        Log.d(TAG, "onDestroy: ");
     }
 
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-
-        public MyFragmentPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Override
-        public Fragment getItem(int arg0) {
-            return fragmentList.get(arg0);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return super.getItemPosition(object);
-        }
-    }
-
-    private class MyOnClickListener implements View.OnClickListener {
-
-        private int index = 0;
-
-        public MyOnClickListener(int i) {
-            index = i;
-        }
-
-        @Override
-        public void onClick(View v) {
-            viewPager.setCurrentItem(index);
-        }
-    }
-
-    private void pageViewSelectedEffect(ImageButton imageButton, TextView textView, int position) {
-        tvTitle.setText(textView.getText());
-        ibtnTodo.setBackgroundResource(R.drawable.iv_mainbottom_todo_un);
-        ibtnRepair.setBackgroundResource(R.drawable.iv_mainbottom_repair_un);
-        ibtnProperty.setBackgroundResource(R.drawable.iv_mainbottom_property_un);
-        ibtnSetting.setBackgroundResource(R.drawable.iv_mainbottom_setting_un);
-        tvTodo.setTextColor(Color.rgb(117,119,118));
-        tvproperty.setTextColor(Color.rgb(117,119,118));
-        tvRepair.setTextColor(Color.rgb(117,119,118));
-        tvSetting.setTextColor(Color.rgb(117,119,118));
-
-        if (position == 0)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_todo);
-        if (position == 1)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_repair);
-        if (position == 2)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_property);
-        if (position == 3)
-            imageButton.setBackgroundResource(R.drawable.iv_mainbottom_setting);
-        textView.setTextColor(Color.rgb(0, 133, 207));
-    }
 }

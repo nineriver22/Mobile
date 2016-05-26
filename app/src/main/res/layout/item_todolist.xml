@@ -21,8 +21,7 @@
         <ImageView
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/iv_todolist_flag"/>
+            android:layout_marginLeft="20dp"/>
 
         <TextView
             android:id="@+id/tv_todolist_sn"
@@ -45,8 +44,7 @@
                 android:id="@+id/iv_todolist_state"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginRight="3dp"
-                android:background="@drawable/iv_todolist_time"/>
+                android:layout_marginRight="3dp"/>
 
             <TextView
                 android:id="@+id/tv_todolist_explain"

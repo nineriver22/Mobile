@@ -16,7 +16,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="25dp"
             android:text="报修信息"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="工单编号"
                 android:textColor="@color/content_text"
@@ -70,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="工单标题"
                 android:textColor="@color/content_text"
@@ -101,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修人"
                 android:textColor="@color/content_text"
@@ -133,6 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修地区"
                 android:textColor="@color/content_text"
@@ -165,6 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修地点"
                 android:textColor="@color/content_text"
@@ -197,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修时间"
                 android:textColor="@color/content_text"
@@ -229,6 +236,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修单位"
                 android:textColor="@color/content_text"
@@ -261,6 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="报修人电话"
                 android:textColor="@color/content_text"
@@ -293,8 +302,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
-                android:text="故障现象故障现象故障现象故障现现象故障现现象故障现现象故障现"
+                android:text="故障现象"
                 android:textColor="@color/content_text"
                 android:textSize="14dp"/>
 
@@ -307,7 +317,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="25dp"
             android:text="资产信息"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -329,6 +340,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="维修编号"
                 android:textColor="@color/content_text"
@@ -361,6 +373,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="归属"
                 android:textColor="@color/content_text"
@@ -393,6 +406,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="地点"
                 android:textColor="@color/content_text"
@@ -425,6 +439,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="设备大类"
                 android:textColor="@color/content_text"
@@ -457,6 +472,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="设备小类"
                 android:textColor="@color/content_text"
@@ -489,6 +505,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="品牌"
                 android:textColor="@color/content_text"
@@ -521,6 +538,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="型号"
                 android:textColor="@color/content_text"
@@ -553,6 +571,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="用途"
                 android:textColor="@color/content_text"
@@ -567,7 +586,8 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="25dp"
             android:text="厂商信息"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -589,6 +609,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="处理厂商"
                 android:textColor="@color/content_text"
@@ -621,6 +642,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="厂商负责人"
                 android:textColor="@color/content_text"
@@ -653,6 +675,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="故障处理人"
                 android:textColor="@color/content_text"
@@ -685,6 +708,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
+                android:background="@null"
                 android:paddingLeft="10dp"
                 android:text="处理人电话"
                 android:textColor="@color/content_text"
@@ -740,15 +764,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/bottom_light"
                 android:gravity="center"
-                android:text="报修"
+                android:text="确定"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold"/>
         </LinearLayout>
+
     </LinearLayout>
+
 </ScrollView>
 
 

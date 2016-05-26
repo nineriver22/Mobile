@@ -1,9 +1,8 @@
 package callbacks;
 
 /**
- * Created by Cii on 2016/4/21.
+ * Created by Constantine on 2016/5/12.
  */
 public interface RecyclerItemClickListener {
-
     void onItemClicked(int index);
 }
