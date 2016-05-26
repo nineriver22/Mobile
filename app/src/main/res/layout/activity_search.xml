@@ -5,37 +5,94 @@
               android:background="@color/primary_background"
               android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="45dp">
 
         <ImageView
             android:id="@+id/iv_search_back"
             android:layout_width="36dp"
             android:layout_height="36dp"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:padding="6dp"
             android:src="@drawable/iv_back"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
+            android:clickable="false"
             android:gravity="center"
             android:text="维修查询"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text_dark"
             android:textSize="16dp"
             android:textStyle="bold"/>
 
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+    <EditText
+        android:id="@+id/et_search_sn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/light_frame"
+        android:gravity="left|center_vertical"
+        android:hint="请输入工单号查询维修信息"
+        android:paddingLeft="20dp"
+        android:textColor="@color/primary_text"
+        android:textSize="14dp">
+    </EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/iv_search"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="查询"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fl_common"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -1,15 +1,12 @@
 package fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +16,7 @@ import com.quantong.mobilefix.R;
 import org.greenrobot.eventbus.EventBus;
 
 import Events.MenuEvent;
+import activities.SearchActivity;
 import constants.PersonalConstansts;
 
 /**
@@ -32,7 +30,7 @@ public class ContentMainFragment extends Fragment implements View.OnClickListene
     private TextView tvToRepairCount;
     private TextView tvRepairingCount;
     private TextView tvRepairedCount;
-    private EditText etSearch;
+    private TextView tvSearch;
     private ImageView ivMenu;
     private ImageView ivScan;
     private LinearLayout llReportor;
@@ -47,7 +45,7 @@ public class ContentMainFragment extends Fragment implements View.OnClickListene
         tvToRepairCount = (TextView) view.findViewById(R.id.tv_contentmain_torepaircount);
         tvRepairingCount = (TextView) view.findViewById(R.id.tv_contentmain_repairingcount);
         tvRepairedCount = (TextView) view.findViewById(R.id.tv_contentmain_repairedcount);
-        etSearch = (EditText) view.findViewById(R.id.et_contentmain_search);
+        tvSearch = (TextView) view.findViewById(R.id.tv_contentmain_search);
         ivMenu = (ImageView) view.findViewById(R.id.iv_contentmain_menu);
         ivScan = (ImageView) view.findViewById(R.id.iv_contentmain_scan);
         llReportor = (LinearLayout) view.findViewById(R.id.ll_contentmain_reportor);
@@ -56,6 +54,7 @@ public class ContentMainFragment extends Fragment implements View.OnClickListene
         llService = (LinearLayout) view.findViewById(R.id.ll_contentmain_service);
 
         ivMenu.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
         ivScan.setOnClickListener(this);
         initView();
         return view;
@@ -82,25 +81,13 @@ public class ContentMainFragment extends Fragment implements View.OnClickListene
             case R.id.iv_contentmain_menu:
                 EventBus.getDefault().post(new MenuEvent());
                 break;
+            case R.id.tv_contentmain_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
 //            case R.id.ibtn_contentmain_scan:
 //                Intent intent = new Intent(getActivity(), ScanActivity.class);
 //                startActivityForResult(intent, SCAN_REQUEST_CODE);
 //                break;
-        }
-    }
-
-    //if have nested fragment, the called activity's lauchmode must be set standard,or else onActivityResult is useless
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case SCAN_REQUEST_CODE:
-                if (resultCode == Activity.RESULT_OK) {
-                    Bundle bundle = data.getExtras();
-                    Log.d(TAG, "onActivityResult: " + bundle.getString("result"));
-                    etSearch.setText(bundle.getString("result"));
-                }
-                break;
         }
     }
 

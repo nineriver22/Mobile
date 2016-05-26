@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
         ft.add(R.id.ll_main_content, new ContentMainFragment());
         ft.commit();
 
-        testToken("wangqiaobian_cz");
+        testToken("suhuhu_qt");
 
         EventBus.getDefault().register(this);
         registerNetworkReceiver();

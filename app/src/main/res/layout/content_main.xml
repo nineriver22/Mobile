@@ -49,8 +49,8 @@
             android:layout_height="42dp"
             android:gravity="center_horizontal">
 
-            <EditText
-                android:id="@+id/et_contentmain_search"
+            <TextView
+                android:id="@+id/tv_contentmain_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -64,7 +64,7 @@
             <ImageView
                 android:layout_width="4dp"
                 android:layout_height="36dp"
-                android:layout_alignRight="@+id/et_contentmain_search"
+                android:layout_alignRight="@+id/tv_contentmain_search"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="55dp"
                 android:src="@drawable/iv_dashed_gray"/>
@@ -73,7 +73,7 @@
                 android:id="@+id/iv_contentmain_scan"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_alignRight="@+id/et_contentmain_search"
+                android:layout_alignRight="@+id/tv_contentmain_search"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:padding="6dp"
