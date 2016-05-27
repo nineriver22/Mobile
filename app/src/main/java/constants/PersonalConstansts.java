@@ -16,6 +16,7 @@ public class PersonalConstansts {
     public static final String PASSWORDKEY = "password";
     public static final String TOKENKEY = "token";
 
+    public static final int PAGESIZE = 5;
     public static int versionCode;
     public static String versionName;
 

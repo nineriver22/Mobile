@@ -16,7 +16,7 @@ import com.quantong.mobilefix.R;
 import org.greenrobot.eventbus.EventBus;
 
 import Events.MenuEvent;
-import activities.SearchActivity;
+import activities.SearchBillsActivity;
 import constants.PersonalConstansts;
 
 /**
@@ -82,7 +82,7 @@ public class ContentMainFragment extends Fragment implements View.OnClickListene
                 EventBus.getDefault().post(new MenuEvent());
                 break;
             case R.id.tv_contentmain_search:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
+                startActivity(new Intent(getActivity(), SearchBillsActivity.class));
                 break;
 //            case R.id.ibtn_contentmain_scan:
 //                Intent intent = new Intent(getActivity(), ScanActivity.class);

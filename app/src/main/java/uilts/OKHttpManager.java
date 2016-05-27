@@ -36,6 +36,7 @@ public class OKHttpManager {
     private OKHttpManager(OkHttpClient okHttpClient, Handler handler) {
         this.mOkHttpClient = okHttpClient;
         this.mDeliveryHander = handler;
+        this.setConnectTimeout(5, TimeUnit.SECONDS);
     }
 
     public void setConnectTimeout(int timeout, TimeUnit units) {

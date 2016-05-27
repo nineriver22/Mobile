@@ -25,7 +25,6 @@ import java.io.File;
 public class BaseApplication extends Application {
 
     private final String TAG = "BaseApplication";
-    private static Context mContext;
     private String cacheFilePath;
     public static DisplayImageOptions displayImageOptions;
     public static InputMethodManager inputMethodManager;
@@ -33,7 +32,6 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
         //initImageLoader(mContext);
         //displayImageOptions = getDisplayImageOptions(mContext);
         //inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -41,22 +39,18 @@ public class BaseApplication extends Application {
         //CrashHandler.getInstance().init(this);
     }
 
-    public static Context getContext() {
-        return mContext;
-    }
-
     public void initImageLoader(Context context) {
         String cachePath;
         File cacheFile;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             File sdCardDir = Environment.getExternalStorageDirectory();
-            cachePath = sdCardDir.getPath() + "/" + mContext.getResources().getString(R.string.app_name) + "/images";
+            cachePath = sdCardDir.getPath() + "/" + this.getResources().getString(R.string.app_name) + "/images";
             cacheFile = new File(cachePath);
             if (!cacheFile.exists()) {
                 cacheFile.mkdirs();
             }
         } else {
-            cachePath = mContext.getFilesDir().getPath() + "/images";
+            cachePath = this.getFilesDir().getPath() + "/images";
             cacheFile = new File(cachePath);
             if (!cacheFile.exists()) {
                 cacheFile.mkdirs();
@@ -67,7 +61,7 @@ public class BaseApplication extends Application {
 
         Log.d("BaseApplication", cacheFilePath);
 
-        File cacheDir = StorageUtils.getOwnCacheDirectory(mContext, cacheFilePath);
+        File cacheDir = StorageUtils.getOwnCacheDirectory(this, cacheFilePath);
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(context).memoryCacheExtraOptions(480, 800).
                 threadPoolSize(3) //线程池内线程的数量
                 .threadPriority(Thread.NORM_PRIORITY - 2)

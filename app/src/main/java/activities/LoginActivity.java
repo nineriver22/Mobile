@@ -87,9 +87,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         startActivity(new Intent(this, MainActivity.class));
         finish();
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
 
-        //defaultAccount();
+        defaultAccount();
     }
 
     private void defaultAccount() {

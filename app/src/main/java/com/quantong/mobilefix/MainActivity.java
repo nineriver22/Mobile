@@ -1,5 +1,6 @@
 package com.quantong.mobilefix;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import Events.MenuEvent;
 import Events.NetworkEvent;
+import Events.RestartEvent;
+import activities.LoginActivity;
 import callbacks.OkHttpCallBack;
 import constants.PersonalConstansts;
 import constants.ServiceContans;
@@ -52,7 +55,7 @@ public class MainActivity extends FragmentActivity {
         ft.add(R.id.ll_main_content, new ContentMainFragment());
         ft.commit();
 
-        testToken("suhuhu_qt");
+        //testToken("suhuhu_qt");
 
         EventBus.getDefault().register(this);
         registerNetworkReceiver();
@@ -86,6 +89,7 @@ public class MainActivity extends FragmentActivity {
             } else {
                 Toast.makeText(this, testTokenBean.message, Toast.LENGTH_SHORT).show();
             }
+            Log.d(TAG, "token: " + PersonalConstansts.token);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -108,6 +112,13 @@ public class MainActivity extends FragmentActivity {
         if (!networkEvent.isNetworkConnected) {
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void restart(RestartEvent restartEvent) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override
