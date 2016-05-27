@@ -30,6 +30,7 @@ import constants.ServiceContans;
 import databeans.CheckTokenBean;
 import databeans.GetCodeBean;
 import databeans.LoginBean;
+import databeans.TestTokenBean;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.Request;
@@ -59,6 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private CheckTokenBean checkTokenBean;
     private GetCodeBean getCodeBean;
     private LoginBean loginBean;
+    private TestTokenBean testTokenBean;
 
     private int timerFlag;
     private Timer timer;
@@ -81,15 +83,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             tvRemeberPassword.setBackgroundResource(R.drawable.bg_login_remeberpsw_un);
         }
 
+//        startActivity(new Intent(this, MainActivity.class));
+//        finish();
+        EventBus.getDefault().register(this);
+
+        initControl();
+        initData();
+    }
+
+    private void initControl() {
         tvGetCode.setOnClickListener(this);
         tvRemeberPassword.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
+    }
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-        //EventBus.getDefault().register(this);
-
-        defaultAccount();
+    private void initData() {
+        //defaultAccount();
+        testToken("suhuhu_qt");
     }
 
     private void defaultAccount() {
@@ -312,4 +322,39 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         Log.d(TAG, "onDestroy: ");
     }
 
+    private void testToken(final String account) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("username", account)
+                .build();
+
+        Request request = new Request.Builder().post(requestBody).url(ServiceContans.testToken).build();
+        OKHttpManager.getInstance().enqueue(request, new OkHttpCallBack() {
+            @Override
+            public void onError(Call call, Exception e) {
+                Log.e(TAG, "onError: " + "error");
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                resolveTestTokenData(response.toString());
+            }
+        });
+    }
+
+    private void resolveTestTokenData(final String json) {
+        Gson gson = new Gson();
+        try {
+            testTokenBean = gson.fromJson(json, TestTokenBean.class);
+            if (testTokenBean.code == 200) {
+                PersonalConstansts.token = testTokenBean.datum.token;
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else {
+                Toast.makeText(this, testTokenBean.message, Toast.LENGTH_SHORT).show();
+            }
+            Log.d(TAG, "token: " + PersonalConstansts.token);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
 }

@@ -5,4 +5,19 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
     </style>
 
+    <style name="pagertab_style">
+        <item name="android:background">#ffffff</item>
+        <item name="apTabBackground">@drawable/bg_aptab</item>
+        <item name="android:textSize">13sp</item>
+        <!--<item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>-->
+        <item name="android:textColor">@drawable/tab_text_color</item>
+        <item name="apTabIndicatorColor">#FF0000</item>
+        <item name="apTabIndicatorHeight">4dp</item>
+        <item name="apTabDividerColor">#00000000</item>
+        <item name="apTabShouldExpand">false</item>
+        <item name="apTabPaddingLeftRight">8dp</item>
+        <item name="apTabDrawMode">text</item>
+        <item name="apTabTextSelectColor">#FF0000</item>
+    </style>
+
 </resources>

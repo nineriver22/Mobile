@@ -35,5 +35,5 @@ dependencies {
     compile 'com.victor:lib:1.0.4'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'org.apache.directory.studio:org.apache.commons.codec:1.8'
-    compile 'com.github.javiersantos:MaterialStyledDialogs:1.4.1'
+    compile 'homhomlin.lib:apsts:1.4.0'
 }

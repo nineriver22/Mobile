@@ -64,6 +64,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:background="@color/line"
+        android:clickable="false"
         android:gravity="center"
         android:orientation="horizontal">
 

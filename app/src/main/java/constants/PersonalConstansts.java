@@ -20,4 +20,16 @@ public class PersonalConstansts {
     public static int versionCode;
     public static String versionName;
 
+    public static final String YYT = "yyt";
+    public static final String OA = "oa";
+    public static final String DW = "dw";
+
+    public static boolean isReporter(){
+        return AUTYPE.equals(YYT) || AUTYPE.equals(OA);
+    }
+
+    public static boolean isWorker(){
+        return AUTYPE.equals(DW);
+    }
+
 }

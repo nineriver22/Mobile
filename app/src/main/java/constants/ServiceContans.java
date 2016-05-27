@@ -11,5 +11,8 @@ public class ServiceContans {
     public static final String checkToken = baseURL + "/api/signIn?";
     public static final String getCode = baseURL + "/api/login/getCode?";
     public static final String login = baseURL + "/api/login/check?";
+    public static final String getFlagCount = baseURL + "/api/index/count?";
     public static final String searchBills = baseURL + "/api/maintain/getByCode?";
+    public static final String todoBills = baseURL + "/api/maintain/getTodo?";
+    public static final String doneBills = baseURL + "/api/maintain/getDone?";
 }

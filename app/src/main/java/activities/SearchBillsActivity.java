@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,8 +70,35 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
 
         billsList = new ArrayList<SearchBillsBean.DatumBean.ListBean>();
 
+        initControl();
+    }
+
+    private void initControl() {
         ivBack.setOnClickListener(this);
         llSearch.setOnClickListener(this);
+        etSearchSN.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int searchLength = etSearchSN.getText().toString().trim().length();
+                if (searchLength > 0) {
+                    llSearch.setEnabled(true);
+                    llSearch.setBackgroundResource(R.color.red);
+                } else {
+                    llSearch.setEnabled(false);
+                    llSearch.setBackgroundResource(R.color.line);
+                }
+            }
+        });
         rcvSearch.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -81,7 +110,6 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
                     if (lastVisibleItem == totalItemCount - 2 && totalItemCount < sumRow) {
                         getSearchBills(etSearchSN.getText().toString().trim(), pageNo, PersonalConstansts.PAGESIZE);
                     }
-
                 }
             }
         });
@@ -94,11 +122,9 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.ll_searchbills:
-                if (etSearchSN.getText().length() > 0) {
-                    getSearchBills(etSearchSN.getText().toString().trim(), pageNo, PersonalConstansts.PAGESIZE);
-                } else {
-                    Toast.makeText(this, "请输入要查询的单据号!", Toast.LENGTH_SHORT).show();
-                }
+                billsList.clear();
+                searchAdapter.notifyDataSetChanged();
+                getSearchBills(etSearchSN.getText().toString().trim(), pageNo, PersonalConstansts.PAGESIZE);
                 break;
         }
     }
@@ -108,8 +134,7 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
                 .add("code", SN)
                 .add("pageNo", String.valueOf(pageNo))
                 .add("pageSize", String.valueOf(pageSize))
-                //.add("token", PersonalConstansts.token)
-                .add("token", "1")
+                .add("token", PersonalConstansts.token)
                 .add("t", String.valueOf(System.currentTimeMillis() / 1000L))
                 .build();
 
@@ -137,8 +162,10 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
                 sumRow = searchBillsBean.datum.totalRow;
                 searchAdapter.notifyDataSetChanged();
                 pageNo = pageNo + 1;
-            } else {
+            } else if (searchBillsBean.code == 401) {
                 TimeoutDeal.overTime(getApplication());
+            } else {
+                Toast.makeText(this, searchBillsBean.message, Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -166,8 +193,8 @@ public class SearchBillsActivity extends Activity implements View.OnClickListene
             if (PersonalConstansts.AUTYPE.equals("dw") && billsList.get(position).treat_timeout) {
                 holder.ivIimeSign.setImageResource(R.drawable.iv_sign_overtime);
             }
-            holder.tvTitle.setText(billsList.get(position).task_name);
-            holder.tvSchedule.setText(String.valueOf(billsList.get(position).process_Id));
+            holder.tvTitle.setText(billsList.get(position).sub_category_name);
+            holder.tvSchedule.setText(String.valueOf(billsList.get(position).task_name));
             holder.tvSN.setText(billsList.get(position).bill_id);
             holder.tvDescription.setText(billsList.get(position).hitch_des);
             holder.tvCreateTime.setText(billsList.get(position).create_time);

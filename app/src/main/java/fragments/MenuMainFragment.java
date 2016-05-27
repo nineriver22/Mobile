@@ -1,7 +1,8 @@
 package fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.github.javiersantos.materialstyleddialogs.enums.Duration;
 import com.quantong.mobilefix.R;
 
 import constants.PersonalConstansts;
@@ -50,24 +47,20 @@ public class MenuMainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_menu_exit:
-                new MaterialStyledDialog(getActivity()).setTitle("确定要退出系统吗?")
-                        .withDialogAnimation(true, Duration.FAST)
-                        .setHeaderColor(R.color.red)
-                        .setCancelable(false)
-                        .setPositive("确定", new MaterialDialog.SingleButtonCallback() {
+                 new AlertDialog.Builder(getActivity())
+                        .setMessage("确定退出程序吗?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
+                            public void onClick(DialogInterface dialog, int which) {
                                 System.exit(0);
                             }
                         })
-                        .setNegative("取消", new MaterialDialog.SingleButtonCallback() {
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
+                            public void onClick(DialogInterface dialog, int which) {
+
                             }
                         }).show();
-                break;
         }
     }
 }

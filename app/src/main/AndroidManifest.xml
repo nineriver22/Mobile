@@ -45,6 +45,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
+        <activity android:name="activities.MyRepairActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

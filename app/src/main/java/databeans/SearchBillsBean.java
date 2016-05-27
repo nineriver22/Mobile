@@ -26,6 +26,7 @@ public class SearchBillsBean {
             public String hitch_des;
             public String process_Id;
             public String task_name;
+            public String sub_category_name;
             public String create_time;
             public boolean treat_timeout;
             public String order_id;
